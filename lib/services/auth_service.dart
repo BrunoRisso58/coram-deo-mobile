@@ -19,7 +19,7 @@ class AuthService {
     prefs.remove('auth_token');
 }
 
-  Future<bool> login(String email, String senha) async {
+  Future<bool> login(String email, String password) async {
     final url = Uri.parse('${ApiConfig.baseUrl}/auth/login');
 
     final response = await http.post(
@@ -27,13 +27,41 @@ class AuthService {
       headers: {'Content-Type': 'application/json'},
       body: jsonEncode({
         'email': email,
-        'password': senha,
+        'password': password,
       }),
     );
 
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
       saveToken(data['data']['token']);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  Future<bool> signUp(
+    String name,
+    String phone,
+    String email,
+    String password,
+    String confirmPassword
+  ) async {
+    final url = Uri.parse('${ApiConfig.baseUrl}/auth/sign-up');
+
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'name': name,
+        'phone': phone,
+        'email': email,
+        'password': password,
+        'password_confirmation': confirmPassword,
+      }),
+    );
+
+    if (response.statusCode == 200) {
       return true;
     } else {
       return false;

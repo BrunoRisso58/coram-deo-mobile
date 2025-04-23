@@ -16,7 +16,7 @@ class LoginFormTextField extends StatelessWidget {
     required this.focusNode,
     required this.borderColor,
     super.key,
-  }) : assert(type == 'email' || type == 'password', 'Type must be either "email" or "password"');
+  }) : assert(type == 'name' || type == 'phone' || type == 'email' || type == 'password', 'Type must be either "email" or "password"');
 
   @override
   Widget build(BuildContext context) {

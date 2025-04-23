@@ -3,18 +3,22 @@ import 'package:flutter/material.dart';
 import '../theme/app_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginButton extends StatelessWidget {
+class AuthButton extends StatelessWidget {
+  final String text;
   final VoidCallback onPressed;
+  final double? width;
 
-  const LoginButton({
+  const AuthButton({
+    required this.text,
     required this.onPressed,
+    this.width,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.75,
+      width: width ?? MediaQuery.of(context).size.width * 0.75,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -28,7 +32,7 @@ class LoginButton extends StatelessWidget {
           ),
         ),
         child: Text(
-          'Entrar',
+          text,
           style: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.bold,

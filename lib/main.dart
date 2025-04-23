@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'theme/app_colors.dart';
 import 'screens/login_screen.dart';
+import 'screens/sign_up_screen.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: LoginScreen(),
+      home: SignUpScreen(),
     );
   }
 }

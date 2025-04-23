@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../theme/app_colors.dart';
 import '../widgets/login_form_text_field.dart';
-import '../widgets/login_button.dart';
-import '../constants/api.dart';
-import '../services/AuthService.dart';
+import '../widgets/auth_button.dart';
+import '../services/auth_service.dart';
+import '../widgets/coram_deo_logo.dart';
+import '../helpers/snack_bar_helper.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -14,8 +15,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final Uri url = Uri.parse('${ApiConfig.baseUrl}/login');
-
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -52,15 +51,16 @@ class _LoginScreenState extends State<LoginScreen> {
     });
 
     if (email.isEmpty || password.isEmpty) {
-      showSnackBar('Preencha todos os campos!');
+      SnackBarHelper.showError(context, 'Preencha todos os campos!');
       return;
     }
 
     bool success = await authService.login(email, password);
     if (success) {
+      SnackBarHelper.showSuccess(context, 'Login realizado com sucesso!');
       print('Deu certo!'); // TODO: go to the default page
     } else {
-      showSnackBar('Email ou senha inválidos!');
+      SnackBarHelper.showError(context, 'Email ou senha inválidos!');
     }
   }
 
@@ -85,14 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Coram Deo',
-                style: GoogleFonts.caveat(
-                  fontSize: 46,
-                  fontWeight: FontWeight.normal,
-                  color: AppColors.primary,
-                ),
-              ),
+              CoramDeoLogo(),
               const SizedBox(height: 32),
               LoginFormTextField(
                 labelText: 'Email',
@@ -125,7 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(height: 32),
-              LoginButton(
+              AuthButton(
+                text: 'Entrar',
                 onPressed: _handleLogin,  // Passe a função para o botão
               ),
             ],
