@@ -124,7 +124,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     bool success = await authService.signUp(name, phone, email, password, confirmPassword);
     if (success) {
       SnackBarHelper.showSuccess(context, 'Bem vindo!');
-      // TODO: go to the default page
+      // TODO: go to the goals page
     } else {
       SnackBarHelper.showError(context, 'Erro ao cadastrar usuário!');
     }
@@ -274,7 +274,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         duration: _transitionDuration,
                         transitionBuilder: (child, animation) {
                           final offsetAnimation = Tween<Offset>(
-                            begin: Offset(_currentPage == 0 ? 1 : -1, 0),
+                            begin: Offset(_currentPage == 0 ? -1 : 1, 0),
                             end: Offset.zero,
                           ).animate(animation);
                           return FadeTransition(
